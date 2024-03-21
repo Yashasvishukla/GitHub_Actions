@@ -3,7 +3,6 @@ name: Auto Cherry Pick
 on:
   pull_request:
     types:
-      - labeled
       - closed
 
 jobs:
