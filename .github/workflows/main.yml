@@ -1,17 +1,25 @@
-name: Auto Cherry Pick
-
+name: Auto Generate PRs marked as hotfix from Main to Version Branch
 on:
   pull_request:
-    types:
-      - closed
+    branches: main
 
 jobs:
-  auto-cherry-pick:
-    if: github.event.pull_request.merged == true
+  cherry_pick_to_version_branch:
     runs-on: ubuntu-latest
+    name: Cherry pick into version branch
+    if: ${{  github.event.pull_request.merged == true }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Auto Cherry Pick
-        uses: mintsweet/auto-cherry-pick@v1.0.0
+      - name: Cherry pick into version branch
+        uses: carloscastrojumo/github-cherry-pick-action@v1.0.1
+        with:
+          branch: master
+          title: "v0.1 - {old_title}"
+          body: "Cherry picking #{old_pull_request_id} onto this branch"
+          labels: |
+            cherry-pick
+          reviewers: |
+            mobile
