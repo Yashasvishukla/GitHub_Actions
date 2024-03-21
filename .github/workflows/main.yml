@@ -20,8 +20,6 @@ jobs:
           branch: master
           labels: |
             cherry-pick
-          reviewers: |
-            aReviewerUser
           title: '[cherry-pick] {old_title}'
           body: 'Cherry picking #{old_pull_request_id} onto this branch'
 env:
